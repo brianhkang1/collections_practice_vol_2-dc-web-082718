@@ -71,7 +71,32 @@ def find_cool(array)
 end
 
 def organize_schools(hash)
-  hash.each_with_object({}) do |(name, data), res|
-    (res[data[:location]] ||= []) << name
+  new_hash = {}
+  array_of_loc = []
+  nyc_array = []
+  sf_array = []
+  chi_array = []
+
+  hash.each do |name, location_key|
+    location_key.each do |key, value|
+      array_of_loc.push(value)
+      array_of_loc.uniq!
+      
+      if value == "NYC"
+        nyc_array.push(name)
+      elsif value == "SF"
+        sf_array.push(name)
+      elsif value == "Chicago"
+        chi_array.push(name)
+      end
+    end
   end
+      
+  array_of_loc.each do |element|
+      new_hash["NYC"] = nyc_array
+      new_hash["SF"] = sf_array
+      new_hash["Chicago"] = chi_array
+  end
+  
+  new_hash
 end 
